@@ -1,0 +1,2 @@
+# SQL-Practice
+ This project presents two advanced SQL queries designed to analyze department-level performance using employee and sales data. These queries utilize joins, date filtering, aggregate functions, null handling with COALESCE, and post-aggregation filtering with HAVING.  The queries help assess departmental efficiency, average performance, and total contributions based on historical sales data.
