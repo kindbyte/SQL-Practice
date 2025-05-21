@@ -108,3 +108,36 @@ AND e.salary < (
     FROM employees e3
     WHERE e3.id = e.manager_id
 );
+
+
+-
+
+🧠 Query 6: Price_vs_category_average
+
+This query identifies products that are priced above their category’s average price. It calculates the percentage difference and shows relevant product and category details.
+
+🔍 Logic
+
+1. Use a CTE (`WITH average_price`) to calculate the average price per category.
+2. Join this CTE with the `products` and `categories` tables.
+3. Calculate the **percentage difference** between a product's price and its category's average.
+4. Filter to include only products with a price over `$100`.
+
+📌 Columns Returned
+
+| Column         | Description                                      |
+|----------------|--------------------------------------------------|
+| `id`           | Product ID                                       |
+| `name`         | Product name                                     |
+| `avg_price`    | Average price of the product’s category          |
+| `category`     | Name of the category                             |
+| `diff_percent` | % difference between product and avg category price |
+
+🛠️ Use Case
+
+Useful for identifying premium or overpriced products within each category, and for pricing strategy analysis.
+
+
+
+
+
