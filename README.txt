@@ -202,5 +202,29 @@ Ideal for marketing segmentation, reporting, or targeted outreach based on clien
 
 
 
+-
+
+🎬 Query 9: Top 2 Movies per Genre by Rating
+
+Goal:
+Identify the top 2 highest-rated movies in each genre.
+
+Highlights:
+
+Uses a Common Table Expression (CTE) named movie_rank to rank movies within each genre using the ROW_NUMBER() window function.
+ROW_NUMBER() assigns a unique row number to each movie partitioned by genre, ordered by rating descending.
+The outer query filters to only include the top 2 movies per genre (row_num <= 2).
+Results are sorted by genre alphabetically and then by rating descending for clarity.
+WITH movie_rank AS (
+  SELECT id, title, genre, rating,
+         ROW_NUMBER() OVER (PARTITION BY genre ORDER BY rating DESC) AS row_num
+  FROM movies
+)
+SELECT id, title, genre, rating, row_num
+FROM movie_rank
+WHERE row_num <= 2
+ORDER BY genre ASC, rating DESC;
+Use Case:
+Perfect for generating genre-based leaderboards or curated recommendations by selecting only the highest-rated content per category.
 
 
