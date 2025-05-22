@@ -138,6 +138,34 @@ This query identifies products that are priced above their category’s average 
 Useful for identifying premium or overpriced products within each category, and for pricing strategy analysis.
 
 
+-
+
+
+🧠 Query 7: Monthly Orders and Average Order Amount (2023)
+
+Goal:
+Analyze customer purchasing activity in 2023 by showing how many orders were made each month and what was the average order value.
+
+Highlights:
+
+Uses EXTRACT() to break down order dates by month.
+Filters data for the calendar year 2023 using BETWEEN.
+Groups results by month to calculate:
+Total number of orders (COUNT(order_id)),
+Average order amount rounded to two decimal places (ROUND(AVG(order_total), 2)).
+SELECT 
+  EXTRACT(month FROM order_date) AS month,
+  COUNT(order_id), 
+  ROUND(AVG(order_total), 2) AS avg_amount
+FROM orders
+WHERE order_date BETWEEN '2023-01-01' AND '2023-12-31'
+GROUP BY EXTRACT(month FROM order_date);
+Use Case:
+Helpful for identifying seasonal trends in order volume and revenue patterns throughout the year.
+
+
+
+
 
 
 
