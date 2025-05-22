@@ -164,6 +164,30 @@ Use Case:
 Helpful for identifying seasonal trends in order volume and revenue patterns throughout the year.
 
 
+-
+
+💁🏻‍♀️ Query 8: Order Size Classification
+
+Goal:
+Categorize each order based on its total value into size groups: Small, Medium, or Large.
+
+Highlights:
+
+Uses CASE expression to classify order_total into three size categories:
+Small — orders less than 500,
+Medium — orders between 500 and 1000 (inclusive),
+Large — orders greater than 1000.
+Returns each order’s ID, total amount, and its corresponding size label.
+SELECT order_id, order_total, 
+  CASE
+    WHEN order_total < 500 THEN 'Small'
+    WHEN order_total >= 500 AND order_total <= 1000 THEN 'Medium'
+    WHEN order_total > 1000 THEN 'Large'
+  END AS order_size
+FROM orders;
+Use Case:
+Useful for segmenting orders by size to tailor marketing, reporting, or operational strategies depending on order value.
+
 
 
 
