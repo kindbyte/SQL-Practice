@@ -1,8 +1,0 @@
-SELECT order_id, order_total, 
-CASE
-WHEN order_total < 500 THEN 'Small'
-WHEN order_total >= 500 AND order_total <= 1000 THEN 'Medium'
-WHEN order_total > 1000 THEN 'Large'
-END AS order_size
-FROM orders;
-                                                                                                                       
