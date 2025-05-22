@@ -166,28 +166,39 @@ Helpful for identifying seasonal trends in order volume and revenue patterns thr
 
 -
 
-💁🏻‍♀️ Query 8: Order Size Classification
+💁🏻‍♀️ Query 8: Client Income and Regional Grouping
 
 Goal:
-Categorize each order based on its total value into size groups: Small, Medium, or Large.
+Classify clients by income levels and group them by geographic regions for better segmentation.
 
 Highlights:
 
-Uses CASE expression to classify order_total into three size categories:
-Small — orders less than 500,
-Medium — orders between 500 and 1000 (inclusive),
-Large — orders greater than 1000.
-Returns each order’s ID, total amount, and its corresponding size label.
-SELECT order_id, order_total, 
+Uses two CASE expressions to create:
+Income categories based on income:
+Low income — less than 30,000,
+Middle income — between 30,000 and 70,000,
+High income — above 70,000.
+Region groups based on region:
+Group A for 'North' and 'East',
+Group B for 'South' and 'West',
+Other for all remaining regions.
+Returns client ID, name, region, income category, and region group.
+Results ordered by income_category ascending, then by client name ascending for clear, prioritized viewing.
+SELECT client_id, name, region, 
   CASE
-    WHEN order_total < 500 THEN 'Small'
-    WHEN order_total >= 500 AND order_total <= 1000 THEN 'Medium'
-    WHEN order_total > 1000 THEN 'Large'
-  END AS order_size
-FROM orders;
+    WHEN income < 30000 THEN 'Low income'
+    WHEN income BETWEEN 30000 AND 70000 THEN 'Middle income'
+    ELSE 'High income'
+  END AS income_category,
+  CASE
+    WHEN region IN ('North', 'East') THEN 'Group A'
+    WHEN region IN ('South', 'West') THEN 'Group B'
+    ELSE 'Other'
+  END AS region_group
+FROM clients
+ORDER BY income_category ASC, name ASC;
 Use Case:
-Useful for segmenting orders by size to tailor marketing, reporting, or operational strategies depending on order value.
-
+Ideal for marketing segmentation, reporting, or targeted outreach based on client income and location.
 
 
 
