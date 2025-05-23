@@ -239,7 +239,7 @@ Highlights:
 
 Uses the LEAD() window function to access the next row’s product_name and amount within each category, ordered by sale_date.
 Provides default values if there is no next row:
-'Нет данных' for next_product,
+'NO_DATA' for next_product,
 0 for next_amount.
 Calculates the difference between the next sale amount and the current sale amount, rounded to 2 decimals.
 Returns product name, category, sale date, current amount, next product, next amount, and the difference with the next sale.
