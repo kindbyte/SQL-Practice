@@ -228,3 +228,29 @@ Use Case:
 Perfect for generating genre-based leaderboards or curated recommendations by selecting only the highest-rated content per category.
 
 
+-
+
+🛒 Query 10: Sales with Next Product and Amount Comparison per Category
+
+Goal:
+Compare each product’s sales amount with the next sale in the same category ordered by sale date.
+
+Highlights:
+
+Uses the LEAD() window function to access the next row’s product_name and amount within each category, ordered by sale_date.
+Provides default values if there is no next row:
+'Нет данных' for next_product,
+0 for next_amount.
+Calculates the difference between the next sale amount and the current sale amount, rounded to 2 decimals.
+Returns product name, category, sale date, current amount, next product, next amount, and the difference with the next sale.
+SELECT product_name,
+       category,
+       sale_date, 
+       amount,
+       LEAD(product_name, 1, 'Нет данных') OVER (PARTITION BY category ORDER BY sale_date) AS next_product,
+       LEAD(amount, 1, 0) OVER (PARTITION BY category ORDER BY sale_date) AS next_amount,
+       ROUND(LEAD(amount, 1, 0) OVER (PARTITION BY category ORDER BY sale_date) - amount, 2) AS difference_with_next
+FROM sales;
+Use Case:
+Useful for tracking sales trends within categories over time and identifying increases or decreases in amounts from one sale to the next.
+
