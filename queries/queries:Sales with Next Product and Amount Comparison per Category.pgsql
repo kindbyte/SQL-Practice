@@ -1,0 +1,9 @@
+SELECT 
+   product_name,
+   category,
+   sale_date, 
+   amount,
+   LEAD(product_name, 1, 'NO_DATA') OVER (PARTITION BY category ORDER BY sale_date) AS next_product,
+   LEAD(amount, 1, 0) OVER (PARTITION BY category ORDER BY sale_date) AS next_amount,
+   ROUND(LEAD(amount, 1, 0) OVER (PARTITION BY category ORDER BY sale_date) - amount, 2) AS difference_with_next
+     FROM sales;
