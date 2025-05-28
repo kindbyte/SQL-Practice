@@ -254,3 +254,27 @@ FROM sales;
 Use Case:
 Useful for tracking sales trends within categories over time and identifying increases or decreases in amounts from one sale to the next.
 
+
+-
+
+
+🔍 Query 11: Add Foreign Key with Cascading Actions
+
+Goal: Ensure referential integrity between orders and customers.
+Highlights: Automatically deletes or updates child records when parent data changes, using ON DELETE CASCADE and ON UPDATE CASCADE.
+
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_customer_id 
+FOREIGN KEY(customer_id) REFERENCES customers(customer_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+Explanation:
+
+Links orders.customer_id to customers.customer_id.
+If a customer is deleted, their orders are also deleted.
+If a customer’s ID is updated, the change is propagated to all related orders.
+When to Use:
+
+When you want to prevent orphaned rows in child tables.
+When child data is not meaningful without its parent record.
